@@ -4,15 +4,16 @@ import React from 'react'
 import LogoutButton from './LogoutButton'
 import { unstable_getServerSession } from 'next-auth/next'
 
-type Props = {}
+type Props = {
+    session: Awaited<ReturnType<typeof unstable_getServerSession>>
+}
 
-const Header = async (props: Props) => {
-    const session = await unstable_getServerSession()
+const Header = ({ session }: Props) => {
 
     if (session) return (
         <header className=' sticky top-0 z-50 bg-white flex justify-between items-center p-10 shadow-sm'>
             <div className=' flex space-x-2'>
-                <Image className='rounded-full mx-2 object-contain' src={session.user?.image!}
+                <Image className='rounded-full mx-2 object-contain' src={session?.user?.image!}
                     height={10} width={50} alt='profile picture' />
                 <div>
                     <p className=' text-blue-400'>Logged in as:</p>
